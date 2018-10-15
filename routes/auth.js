@@ -34,7 +34,8 @@ router.get('/private', verifyToken, (req,res,next)=>{
 router.get("/user/guests", verifyToken, (req, res) =>{
   User.find()
   .then(users=>{
-    res.status(200).json({users});
+    console.log(users)
+    return res.status(200).json({users});
   })
 })
 

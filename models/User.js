@@ -17,6 +17,15 @@ const userSchema = new Schema({
     enum: ['admin','user'],
     default: 'user'
   },
+  tickets: {
+    type: Number,
+    default: '2'
+  },
+  attendant: {
+    type: String,
+    enum: ['yes','no'],
+    default: 'yes'
+  },
   photoURL: String,
   pictures:[
       {
