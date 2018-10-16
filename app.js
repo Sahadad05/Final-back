@@ -15,7 +15,7 @@ const cors         = require('cors')
 
 
 mongoose
-  .connect(process.env.DB, {useNewUrlParser: true})
+  .connect(process.env.DB || 'http://localhost:3000/back', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -70,10 +70,10 @@ const index = require('./routes/index');
 const auth = require('./routes/auth')
 const users =  require('./routes/users')
 const pictures = require('./routes/pictures')
-app.use('/', index);
-app.use('/api/auth', auth)
-app.use('/api/', users)
-app.use('//api/pictures', pictures)
+//app.use('/', index);
+app.use('/auth', auth)
+app.use('/users', users)
+app.use('/pictures', pictures)
 
 
 

@@ -6,7 +6,7 @@ const {generateToken, verifyToken} = require('../helpers/jwt')
 const sendMail    = require('../helpers/mailer')
 
 
-router.post('/api//signup', (req, res, next)=>{
+router.post('/signup', (req, res, next)=>{
   User.register(req.body, req.body.password)
   .then(user=>{
     sendMail.welcomeMail(user.username, user.email)
@@ -18,7 +18,7 @@ router.post('/api//signup', (req, res, next)=>{
   .catch(e=>next(e))
 })
 
-router.post('/api//login',
+router.post('/login',
  passport.authenticate('local'), 
  (req,res,next)=>{
     const token = generateToken(req.user)
@@ -26,12 +26,12 @@ router.post('/api//login',
 })
 
 
-router.get('/api//private', verifyToken, (req,res,next)=>{
+router.get('/private', verifyToken, (req,res,next)=>{
   res.send("Esto sololo ven los usuarios logueados" + req.user.username)
 })
 
 
-router.get("/api//user/guests", verifyToken, (req, res) =>{
+router.get("/user/guests", verifyToken, (req, res) =>{
   User.find()
   .then(users=>{
     console.log(users)
@@ -41,7 +41,7 @@ router.get("/api//user/guests", verifyToken, (req, res) =>{
 
 
 //Agregar invitados
-router.post('/api//user/guests',verifyToken,(req,res,next)=>{
+router.post('/user/guests',verifyToken,(req,res,next)=>{
   console.log("perro", req.body);
   const {users} = req.body
   const guests = users.split(',')
