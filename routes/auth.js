@@ -11,8 +11,7 @@ router.post('/signup', (req, res, next)=>{
   .then(user=>{
     sendMail.welcomeMail(user.username, user.email)
     req.app.locals.loggedUser = user
-    // res.status(201).json(user)
-    res.redirect('/login')
+    return res.status(201).json(user)
 
   })
   .catch(e=>next(e))
@@ -61,6 +60,16 @@ router.post('/user/guests',verifyToken,(req,res,next)=>{
     res.status(201).json(user)
   }).catch(e=>res.status(500).json(e))
 })
+})
+
+router.post('/removeUsers', verifyToken, (req,res,next)=>{
+  User.findByIdAndRemove(req.body._id)
+  .then(c=>{
+    res.status(201).json(c)
+  })
+  .catch(e=>{
+      res.status(500).json(e)
+  })
 })
 
 //Mapa
